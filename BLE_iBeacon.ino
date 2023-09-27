@@ -19,13 +19,18 @@
 #include <BLEBeacon.h>
 #include <FastLED.h>
 
-#define DEVICE_NAME            "ESP32"
+// #define DEVICE_NAME            "ESP32" // TTGO
+#define DEVICE_NAME            "ESP32_Firebeetle" // Firebeetle
 #define SERVICE_UUID           "5A4BCFCE-174E-4BAC-A814-092E77F6B7E5"
 #define BEACON_UUID            "2D7A9F0C-E0E8-4CC9-A71B-A21DB2D034A1" // Yang dipake nanti
 #define BEACON_UUID_REV        "A134D0B2-1DA2-1BA7-C94C-E8E00C9F7A2D"
 #define CHARACTERISTIC_UUID    "82258BAA-DF72-47E8-99BC-B73D7ECD08A5"
 
 #define DATA_PIN 5
+
+#define MAJORID 5
+// #define MINORID 88 // TTGO
+#define MINORID 90 // Firebeetle
 
 CRGB leds[1];
 
@@ -103,8 +108,8 @@ void init_beacon() {
   // iBeacon
   BLEBeacon myBeacon;
   myBeacon.setManufacturerId(0x4c00);
-  myBeacon.setMajor(5);
-  myBeacon.setMinor(88);
+  myBeacon.setMajor(MAJORID);
+  myBeacon.setMinor(MINORID);
   myBeacon.setSignalPower(0xc5);
   myBeacon.setProximityUUID(BLEUUID(BEACON_UUID_REV));
 
@@ -158,7 +163,7 @@ void loop() {
 
   // Firebeetle blink red ===================================================
   digitalWrite(2, HIGH);  // turn the LED on (HIGH is the voltage level)
-  leds[0] = CRGB::Red;
+  leds[0] = CRGB::Green;
   FastLED.show();
   delay(500);                      // wait for a second
   digitalWrite(2, LOW);   // turn the LED off by making the voltage LOW
